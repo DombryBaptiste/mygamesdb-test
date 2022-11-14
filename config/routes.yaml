@@ -1,3 +1,63 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+app_home:
+    path: /
+    controller: App\Controller\HomeController::index
+
+app_connexion_user:
+    path: /connexion
+    controller: App\Controller\ConnexionController::index
+
+app_disconect_user:
+    path: /disconnect
+    controller: App\Controller\ConnexionController::disconect
+
+app_inscription_user:
+    path: /inscription
+    controller: App\Controller\InscriptionController::inscription
+
+app_all_games:
+    path: /games/{platform}
+    controller: App\Controller\GamesController::showGamesByPlatform
+
+app_one_game:
+    path: /games/{platform}/{id}
+    controller: App\Controller\GamesController::showGameByPlatformAndId
+
+app_delete_game:
+    path: /games/{platform}/{id}/delete
+    controller: App\Controller\GamesController::deleteGame
+
+app_add_game:
+    path: /games/{platform}/{id}/add
+    controller: App\Controller\GamesController::addGame
+
+app_search:
+    path: /search/{string}
+    controller: App\Controller\SearchController::index
+
+app_profil:
+    path: /profil
+    controller: App\Controller\ProfilController::index
+
+app_change_pseudo:
+    path: /profil/change_pseudo
+    controller: App\Controller\ProfilController::changePseudo
+
+app_change_email:
+    path: /profil/change_email
+    controller: App\Controller\ProfilController::changeEmail
+
+app_suppr_acc:
+    path: /profil/suppr_acc
+    controller: App\Controller\ProfilController::deleteUser
+
+app_change_pass:
+    path: /profil/change_pass
+    controller: App\Controller\ProfilController::changePassword
+
+app_collection:
+    path: /collection
+    controller: App\Controller\CollectionController::index

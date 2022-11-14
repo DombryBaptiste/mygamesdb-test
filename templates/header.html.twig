@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% block head %}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}{% endblock %}</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="{{ asset("css/body_style.css") }}">
+	
+	<link rel="stylesheet" href="{{ asset("css/header_style.css") }}">
+	<link rel="stylesheet" href="{{ asset("css/connexion_case_style.css") }}">
+	{% endblock %}
+</head>
+<body>
+	{% block body %}
+	<header>
+		<div class="header_bar">
+			<a href="{{ path('app_home') }}"><img class="header_logo" src="{{ asset("img/M.png") }}" alt="Logo"></a>
+			<div class="recherche">
+				{{ form_start(formBar, {'attr': {'class':'form_recherche'}}) }}
+					<div class="recherche_bar_loupe">	
+						<button class="button_loupe" type="submit" ><img type="image" class="loupe" src="{{ asset("img/loupe.png") }}" alt="loupe"></button>
+						{{ form_widget(formBar.search) }}
+					</div>
+				{{ form_end(formBar) }}
+			</div>
+			<div class="connexion">
+    			{% if session.get('isConnected') %}
+        			<ul class="listeprofil">
+						<li class="li_profil">
+							<div class="ongletPROFIL">
+								{% if session.get('userPseudo') is defined %}
+									{{ session.get('userPseudo') }}
+								{% endif %}			
+							</div>
+							<div class="deroulantPROFIL">
+								<ul class="listeoptionPROFIL">
+									<a href="{{ path('app_profil') }}" class="link_profil"><li class="option">Mon profil</li></a>
+									<a href="{{ path('app_collection') }}" class="link_profil"><li class="option">Ma collection</li></a>
+									<a href="{{ path('app_disconect_user') }}" class="link_profil"><li class="option">Se deconnecter</li></a>
+								</ul>
+							</div>
+						</li>
+					</ul>
+       			{% else %}
+			        <a class="link_con_ins" href="{{ path('app_connexion_user') }}">Connexion</a>
+							<span>|</span>
+					<a class="link_con_ins" href="{{ path('app_inscription_user') }}">Inscription</a>
+        		{% endif %}
+			</div>
+		</div>
+	</header>
+	<nav class="nav1">
+		<ul class="listeconsole">
+			<li class="li_console">
+				<div class="ongletPS">
+					PlayStation
+				</div>
+				<div class="deroulantPS">
+					<ul class="listeoption">
+						<a class="link_console" href="#"><li class="option">PS1</li></a>
+						<a class="link_console" href="#"><li class="option">PS2</li></a>
+						<a class="link_console" href="#"><li class="option">PS3</li></a>
+						<a class="link_console" href="#"><li class="option">PS4</li></a>
+						<a class="link_console" href="#"><li class="option">PS5</li></a>
+					</ul>
+				</div>
+			</li>
+			<li class="li_console">
+				<div class="ongletXBOX">
+					Xbox
+				</div>
+				<div class="deroulantXBOX">
+					<ul class="listeoption">
+						<a class="link_console" href="#"><li class="option">Xbox</li></a>
+						<a class="link_console" href="#"><li class="option">Xbox 360</li></a>
+						<a class="link_console" href="#"><li class="option">Xbox One</li></a>
+						<a class="link_console" href="#"><li class="option">Xbox Series X</li></a>
+					</ul>
+				</div>
+			</li>
+			<li class="li_console">
+				<div class="ongletNINTENDO">
+					Nintendo
+				</div>
+				<div class="deroulantNINTENDO">
+					<ul class="listeoption">
+						<a class="link_console" href="{{ path('app_all_games', {platform: 'DS'} ) }}"><li class="option">DS</li></a>
+						<a class="link_console" href="{{ path('app_all_games', {platform: '3DS'} ) }}"><li class="option">3DS</li></a>
+						<a class="link_console" href="{{ path('app_all_games', {platform: 'Wii'} ) }}"><li class="option">Wii</li></a>
+						<a class="link_console" href="{{ path('app_all_games', {platform: 'WiiU'} ) }}"><li class="option">Wii U</li></a>
+						<a class="link_console" href="{{ path('app_all_games', {platform: 'Switch'} ) }}"><li class="option">Switch</li></a>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</nav>
+	<script src="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/js/axentix.min.js"></script>
+    {% block javascripts %}{% endblock %}
+    <script src="{{ asset('js/menu.js') }}"></script>
+    <p class="info_session">
+		{% if form_return is defined %}
+			{{ form_return }}
+		{%  endif  %}
+		{% for message in app.flashes('error') %}
+			<p class="info_session">{{ message }}</p>
+		{% endfor %}
+	</p>
+    {% endblock %}
+</body>
+</html>
